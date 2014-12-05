@@ -1,0 +1,10 @@
+{
+  "name": "nock-exec",
+  "version": "0.1",
+  "devDependencies": {
+    "mocha": "^1.21.3"
+  },
+  "dependencies": {
+    "proxyquire": "*"
+  }
+}
