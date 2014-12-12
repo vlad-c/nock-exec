@@ -1,37 +1,18 @@
-var exec = require('child_process').exec;
-var q     = require('q');
+var sample = require('./sample-command.js');
 
-exports.listChocoPackages = function() {
-    var defer = q.defer(),
-        command,
-        packages = '',
-        packageArray = [],
-        tempArray = [];
+//console.log('===== Take 1 : without nock-exec');
+//sample.start();
 
-    command = exec('chocolatey list -lo');
-    command.stdin.end();
+var nockExec = require('./nock-exec');
 
-    command.stdout.on('data', function(data) {
-      if(data.toString() == '\n') {
-        packages = '';
-      }
-      packages += data;
-    })
+var myOutput = 'This is a different output for the command\nNothing more to see here !';
 
-    command.on('error', function(err) {
-        defer.reject();
-    });
+console.log('===== Take 2 : with nock-exec');
+nockExec(sample.cmdLine).out('Doh').outputLine('Dah').reply(2, myOutput);
+//sample.start();
 
-    command.on('exit', function(code) {
-        packages = packages.trim('\r\n').split('\r\n');
-        packages.forEach(function(pk) {
-            tempArray = pk.split(' ');
-            if(tempArray.length == 2) {
-                packageArray.push({'name': tempArray[0], 'kind': 'software-chocolatey', 'version': tempArray[1]});
-            }
-        });
-        defer.resolve(packageArray);
-    });
+console.log('===== Take 3 : with nock-exec and callback');
+sample.startWithCallback();
 
-    return defer.promise;
-}
+console.log('===== Done');
+
