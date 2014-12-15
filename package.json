@@ -5,6 +5,13 @@
   "main": "./nock-exec.js",
   "author": "Vladimir Clausse",
   "keywords": ["mock", "exec", "testing"],
+  "engines": {
+    "node": ">=0.8.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vlad-c/nock-exec.git"
+  },
   "devDependencies": {
     "mocha": "^1.21.3"
   },
