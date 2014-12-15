@@ -1,9 +1,10 @@
-var sample = require('./sample-command.js');
+var nockExec = require('./../nock-exec');
+var sample = require('./sample-command2.js');
 
-//console.log('===== Take 1 : without nock-exec');
-//sample.start();
+console.log('===== Take 1 : without nock-exec');
+sample.start();
 
-var nockExec = require('./nock-exec');
+
 
 var myOutput = 'This is a different output for the command\nNothing more to see here !';
 

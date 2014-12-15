@@ -164,45 +164,19 @@ function record(command) {
 
 start();
 
-module.exports = record;
-
-/*
 var childProcessStub = {
-    exec: function(command, options, callback) {
-        //console.log('Executing "' + command + '"');
-        //var p = cp.exec(command, options, callback);
-        var p = new ProcessMock(command);
-
-        return p;
+    exec: function(command /*, options, callback*/) {
+        return overrideExec.apply(this, arguments);
     }
 };
 
-var test = proxyquire('../../../lib/utils/chocolatey/chocolatey-util', {'child_process': childProcessStub});
-*/
-/*
-describe.only('etap-agent#chocolatey', function() {
-    this.timeout(20000);
-    var hook;
-    beforeEach(function() {
-        //hook = captureStream(process.stdout);
-    });
+module.exports = record;
 
-    afterEach(function(){
-        //hook.unhook();
-    });
-
-    describe('no chocolatey', function () {
-        it('return an empty list', function (done) {
-            test.listChocoPackages().then(function(packages) {
-                //var r = hook.captured();
-                //console.log(r);
-                assert(Array.isArray(packages), 'packages is not an Array');
-            }, function(err) {
-                assert(false, 'We should not have been rejected !!');
-
-            }).then(done, done);
-        });
-    });
-});
-*/
-
+/**
+ * Usage:
+ * var proxyquire =  require('proxyquire');
+ * var nockExec =  require('nock-exec');
+ * var myModuleUnderTest = proxyquire('my-module-under-test', {'child_process': nockExec.moduleStub});
+ * @type {{exec: Function}}
+ */
+module.exports.moduleStub = childProcessStub;
