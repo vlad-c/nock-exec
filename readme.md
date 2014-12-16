@@ -1,4 +1,4 @@
-Nock-exec is a [`child_process.exec`](http://nodejs.org/api/child_process.html#child_process_child_process_exec_command_options_callback) mocking library for Node.js inspired by [nock](/pgte/nock) library.
+Nock-exec is a [`child_process.exec`](http://nodejs.org/api/child_process.html#child_process_child_process_exec_command_options_callback) mocking library for Node.js inspired by [nock](https://github.com/pgte/nock) library.
 
 # Usage
 In your test you can write:
