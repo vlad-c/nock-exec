@@ -23,3 +23,27 @@ will produce this output:
 stdout: This command was mocked
 stderr: some error
 ```
+
+# To do
+## arguments
+Manage conditional arguments like
+```js
+var nockExec = require('nock-exec');
+nockExec('myapp').args('a b c').reply(0, 'done');
+```
+
+## delay
+```js
+var nockExec = require('nock-exec');
+nockExec('myapp').args('a b c').delay(300).reply(0, 'done');
+```
+
+## filtering
+```js
+var nockExec = require('nock-exec');
+nockExec('myapp')
+    .filteringArgs(function(args) {
+       return 'a b c';
+    })
+    .reply(0, 'done');
+```
