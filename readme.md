@@ -24,6 +24,13 @@ stdout: This command was mocked
 stderr: some error
 ```
 
+You can limit the execution of the command one time:
+```js
+var nockExec = require('nock-exec');
+nockExec('myapp').once().err('some error').reply(0, 'This command was mocked');
+```
+If you try to call this command again will not work.
+
 # To do
 ## arguments
 Manage conditional arguments like
