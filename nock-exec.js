@@ -45,6 +45,7 @@ function ProcessMock(command) {
     EventEmitter.call(this);
     this._command = command;
     this._actions = [];
+    this._once = false;
     this._exited = false;
     this._callback = undefined;
     this.stdout = new DirectDuplex();
@@ -119,6 +120,11 @@ ProcessMock.prototype.errorLine = function(output) {
     return this;
 };
 
+ProcessMock.prototype.once = function() {
+    this._once = true;
+    return this;
+};
+
 ProcessMock.prototype.exit = function(code) {
     this._actions.push({op: 'exit', arg: code});
     return this;
@@ -139,6 +145,9 @@ function overrideExec(command /*, options, callback*/) {
 
     if (command in interceptors) {
         var interceptor = interceptors[command];
+        if (interceptor._once) {
+            delete interceptors[command];
+        }
         return interceptor._run(options, callback);
     }
     else {
